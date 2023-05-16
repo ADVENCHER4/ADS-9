@@ -1,6 +1,7 @@
 // Copyright 2021 NNTU-CS
 #ifndef INCLUDE_BST_H_
 #define INCLUDE_BST_H_
+#include <algorithm>
 #include <string>
 template<typename T>
 struct Node {
@@ -57,7 +58,7 @@ class BST {
          root = insert(root, k);
      }
      int depth() {
-         return getHeight(root);
+         return getHeight(root) - 1;
      }
      int search(T k) {
          return findVal(root, k);
