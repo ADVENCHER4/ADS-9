@@ -6,23 +6,26 @@ template<typename T>
 struct Node {
     T key;
     int count;
-    uint16_t height;
     Node* left, * right;
-    Node(T k): key(k), count(1), left(nullptr), right(nullptr), height(1) {}
+    explicit Node(T k): key(k), count(1), left(nullptr), right(nullptr) {}
 };
 template<typename T>
 class BST {
  private:
      Node<T>* root;
      int getHeight(Node<T>* p) {
-         return p != nullptr ? p->height : 0;
+         if (p == nullptr)
+             return 0;
+         int hr = getHeight(p->right);
+         int hl = getHeight(p->left);
+         return std::max(hr, hl) + 1;
      }
      Node<T>* insert(Node<T>* p, T k) {
          if (p == nullptr) {
              p = new Node<T>(k);
-         } else if(p->key > k) {
+         } else if (p->key > k) {
              p->left = insert(p->left, k);
-         } else if(p->key < k) {
+         } else if (p->key < k) {
              p->right = insert(p->right, k);
          } else {
              p->count++;
